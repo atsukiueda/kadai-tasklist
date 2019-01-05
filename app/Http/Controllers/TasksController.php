@@ -124,8 +124,12 @@ class TasksController extends Controller
         $task->content = $request->content;
         $task->status = $request->status;
         
-        $task->save();
-        
+        if (\Auth::id() === $task->user_id) {
+            
+            $task->save();
+        } else {
+            return redirect('/');
+        }
         return redirect('/');
     }
 
